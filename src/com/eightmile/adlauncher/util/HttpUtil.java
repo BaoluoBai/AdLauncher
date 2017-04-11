@@ -10,6 +10,12 @@ import java.net.URL;
 
 public class HttpUtil {
 	
+	/**
+	 * 向服务器请求数据
+	 * @param address url地址
+	 * @param listener
+	 * @author zc
+	 */
 	public static void getHttpRequest(final String address, 
 			final HttpCallbackListener listener){
 		new Thread(new Runnable() {
@@ -48,7 +54,13 @@ public class HttpUtil {
 		}).start();
 	}
 	
-	
+	/**
+	 * 向服务器发送数据
+	 * @param address url地址
+	 * @param data	需要发送的数据，为json字符串格式
+	 * @param listener 回调函数
+	 * @author zc
+	 */
 	public static void postHttpRequest(final String address,final String data,
 			final HttpCallbackListener listener){
 		new Thread(new Runnable() {
