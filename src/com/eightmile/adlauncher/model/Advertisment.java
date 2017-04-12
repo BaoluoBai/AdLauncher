@@ -1,6 +1,6 @@
 package com.eightmile.adlauncher.model;
 
-public class Vedio {
+public class Advertisment {
 	private int id;
 	
 	private String name;

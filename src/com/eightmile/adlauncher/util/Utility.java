@@ -3,8 +3,13 @@ package com.eightmile.adlauncher.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.text.TextUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import android.text.TextUtils;
+import android.widget.Toast;
+
+import com.eightmile.adlauncher.activity.AdApplication;
 import com.eightmile.adlauncher.db.AdLauncherDB;
 import com.eightmile.adlauncher.model.LayoutInfo;
 
@@ -21,23 +26,39 @@ public class Utility {
 	 */
 	public static boolean handleLayoutResponse(AdLauncherDB adLauncherDB, String response){
 		if(!TextUtils.isEmpty(response)){
-			List<LayoutInfo> list = new ArrayList<LayoutInfo>();
-			list = adLauncherDB.loadLayout();
-			if(list.size() == 0){
-				//直接加载从服务器请求的数据，并将数据插入到数据库
-				
-				return true;
-			}else{
-				if(list.get(0).getContent().equals(response)){
-					//加载本地布局
-					
+			JSONObject jsonObject;
+			String status = "";
+			try {
+				jsonObject = new JSONObject(response);
+				status = jsonObject.getString("status");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if(status.equals("1")){
+				List<LayoutInfo> list = new ArrayList<LayoutInfo>();
+				list = adLauncherDB.loadLayout();
+				if(list.size() == 0){
+					//直接加载从服务器请求的数据，并将数据插入到数据库
+					adLauncherDB.saveLayout(response);
 					return true;
 				}else{
-					//加载从服务器请求的布局，并覆盖原数据库中的数据
-					
-					return true;
+					if(list.get(0).getContent().equals(response)){
+						//加载本地布局
+						
+						return true;
+					}else{
+						//加载从服务器请求的布局，并覆盖原数据库中的数据
+						
+						return true;
+					}
 				}
+			}else {
+				Toast.makeText(AdApplication.getContext(), "服务器错误,加载本地布局", Toast.LENGTH_SHORT).show();
+				return false;
 			}
+			
 		}
 		return false;
 	}

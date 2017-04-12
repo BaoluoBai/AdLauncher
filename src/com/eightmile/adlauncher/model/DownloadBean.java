@@ -9,6 +9,8 @@ public class DownloadBean {
 	
 	private String downloadAddress;
 	
+	private String type;
+	
 	
 
 	@Override
@@ -21,9 +23,10 @@ public class DownloadBean {
         return isEqual;
 	}
 	
-	public DownloadBean(String name, String downloadAddress) {
+	public DownloadBean(String name, String downloadAddress, String type) {
         this.name = name;
         this.downloadAddress = downloadAddress;
+        this.type = type;
         this.downloadProgress = 0;
         this.downloadReference = 0;
     }
@@ -59,5 +62,14 @@ public class DownloadBean {
 	public void setDownloadAddress(String downloadAddress) {
 		this.downloadAddress = downloadAddress;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 	
 }

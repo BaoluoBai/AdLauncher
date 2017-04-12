@@ -8,6 +8,7 @@ import com.eightmile.adlauncher.model.HeartBeat;
 import com.eightmile.adlauncher.service.WebSocketService;
 import com.eightmile.adlauncher.util.HttpCallbackListener;
 import com.eightmile.adlauncher.util.HttpUtil;
+import com.eightmile.adlauncher.util.LogUtil;
 import com.google.gson.Gson;
 
 import android.app.Activity;
@@ -106,7 +107,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void onError(Exception e) {
 				// TODO Auto-generated method stub
-				
+				LogUtil.e(TAG, "网络请求错误");
 			}
 		});
     }
