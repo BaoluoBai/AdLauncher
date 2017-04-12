@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class AdLauncherOpenHelper extends SQLiteOpenHelper {
-	public static final String CREATE_VEDIO = "create table vedio(" +
+	public static final String CREATE_ADVERTISMENT = "create table advertisment(" +
 			"id integer primary key autoincrement, " +
 			"name text, " +
 			"location text, " +
@@ -47,6 +47,10 @@ public class AdLauncherOpenHelper extends SQLiteOpenHelper {
 			"disc text, " +
 			"version text, " +
 			"ip text)";
+	
+	public static final String CREATE_LAYOUT = "create table layout(" +
+			"id integer primary key autoincrement, " +
+			"content text)";
 
 	public AdLauncherOpenHelper(Context context, String name,
 			CursorFactory factory, int version) {
@@ -57,10 +61,11 @@ public class AdLauncherOpenHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
-		db.execSQL(CREATE_VEDIO);
+		db.execSQL(CREATE_ADVERTISMENT);
 		db.execSQL(CREATE_ADLOG);
 		db.execSQL(CREATE_DOWNLOADLOG);
 		db.execSQL(CREATE_DEVICEINFO);
+		db.execSQL(CREATE_LAYOUT);
 	}
 
 	@Override

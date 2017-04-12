@@ -6,6 +6,8 @@ import java.util.TimerTask;
 import com.eightmile.adlauncher.R;
 import com.eightmile.adlauncher.model.HeartBeat;
 import com.eightmile.adlauncher.service.WebSocketService;
+import com.eightmile.adlauncher.util.HttpCallbackListener;
+import com.eightmile.adlauncher.util.HttpUtil;
 import com.google.gson.Gson;
 
 import android.app.Activity;
@@ -53,11 +55,13 @@ public class MainActivity extends Activity {
     			}
     		};
     		Timer time =new Timer();
-//    		time.schedule(insertDeviceInfo,60*1000);
     		time.schedule(sendpang, 10*1000, 20*1000);
         }
     }
     
+    /**
+     * 向服务器发送心跳包
+     */
     public void sendHeartBeat(){
     	String pang = gson.toJson(heart);
     	if(webSocketClientBinder == null){
@@ -65,5 +69,45 @@ public class MainActivity extends Activity {
     	}else{
     		webSocketClientBinder.sendMsg(pang);
     	}
+    }
+    
+    /**
+     * 从服务器查询数据，包括布局、版本、APP、广告列表、及时消息、定时开关机等
+     * @param address 请求服务器的地址
+     * @param type	请求的类型
+     */
+    private void queryFromServer(final String address, final String type){
+    	HttpUtil.getHttpRequest(address, new HttpCallbackListener() {
+			
+			@Override
+			public void onFinish(String response) {
+				// TODO Auto-generated method stub
+				if("lastest_api".equals(type)){
+					
+				}else if("init_api".equals(type)){
+					
+				}else if("layout_api".equals(type)){
+					
+				}else if("applist_api".equals(type)){
+					
+				}else if("adlist_api".equals(type)){
+					
+				}else if("instantmessage_api".equals(type)){
+					
+				}else if("switchs_api".equals(type)){
+					
+				}else if("volume_api".equals(type)){
+					
+				}else if("emergency_api".equals(type)){
+					
+				}
+			}
+			
+			@Override
+			public void onError(Exception e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
     }
 }
