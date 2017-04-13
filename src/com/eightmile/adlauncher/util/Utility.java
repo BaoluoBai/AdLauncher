@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.eightmile.adlauncher.activity.AdApplication;
 import com.eightmile.adlauncher.db.AdLauncherDB;
+import com.eightmile.adlauncher.manager.LayoutManager;
 import com.eightmile.adlauncher.model.LayoutInfo;
 
 public class Utility {
@@ -26,6 +27,7 @@ public class Utility {
 	 */
 	public static boolean handleLayoutResponse(AdLauncherDB adLauncherDB, String response){
 		if(!TextUtils.isEmpty(response)){
+			LayoutManager layoutManager = new LayoutManager();
 			JSONObject jsonObject;
 			String status = "";
 			try {
@@ -46,16 +48,17 @@ public class Utility {
 				}else{
 					if(list.get(0).getContent().equals(response)){
 						//加载本地布局
-						
+						layoutManager.createLayout(list.get(0).getContent());
 						return true;
 					}else{
 						//加载从服务器请求的布局，并覆盖原数据库中的数据
-						
+						layoutManager.createLayout(response);
+						adLauncherDB.updateLayout(response, list.get(0).getId());
 						return true;
 					}
 				}
 			}else {
-				Toast.makeText(AdApplication.getContext(), "服务器错误,加载本地布局", Toast.LENGTH_SHORT).show();
+				Toast.makeText(AdApplication.getContext(), "请求服务器失败,加载本地布局", Toast.LENGTH_SHORT).show();
 				return false;
 			}
 			

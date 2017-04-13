@@ -4,11 +4,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.eightmile.adlauncher.R;
+import com.eightmile.adlauncher.db.AdLauncherDB;
 import com.eightmile.adlauncher.model.HeartBeat;
 import com.eightmile.adlauncher.service.WebSocketService;
 import com.eightmile.adlauncher.util.HttpCallbackListener;
 import com.eightmile.adlauncher.util.HttpUtil;
 import com.eightmile.adlauncher.util.LogUtil;
+import com.eightmile.adlauncher.util.Utility;
 import com.google.gson.Gson;
 
 import android.app.Activity;
@@ -25,6 +27,7 @@ public class MainActivity extends Activity {
 	Gson gson = new Gson();
 	HeartBeat heart = new HeartBeat("pang");
 	private WebSocketService.WebSocketClientBinder webSocketClientBinder;
+	private AdLauncherDB adLauncherDB;
 	
 	private ServiceConnection connection = new ServiceConnection(){
 
@@ -46,6 +49,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        adLauncherDB = AdLauncherDB.getInstance(this);
         Intent intent = new Intent(this, WebSocketService.class);
         boolean isBind = bindService(intent, connection, BIND_AUTO_CREATE);
         if(isBind == true){
@@ -88,7 +92,7 @@ public class MainActivity extends Activity {
 				}else if("init_api".equals(type)){
 					
 				}else if("layout_api".equals(type)){
-					
+					Utility.handleLayoutResponse(adLauncherDB, response);
 				}else if("applist_api".equals(type)){
 					
 				}else if("adlist_api".equals(type)){
