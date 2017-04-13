@@ -116,5 +116,8 @@ public class HttpUtil {
 		}).start();
 	}
 	
+	public static void downloadFile(final String address, final String filePath){
+		
+	}
 	
 }
