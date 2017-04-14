@@ -1,12 +1,18 @@
 package com.eightmile.adlauncher.activity;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 import com.eightmile.adlauncher.R;
 import com.eightmile.adlauncher.db.AdLauncherDB;
 import com.eightmile.adlauncher.model.HeartBeat;
 import com.eightmile.adlauncher.service.WebSocketService;
+import com.eightmile.adlauncher.util.Config;
 import com.eightmile.adlauncher.util.HttpCallbackListener;
 import com.eightmile.adlauncher.util.HttpUtil;
 import com.eightmile.adlauncher.util.LogUtil;
@@ -50,6 +56,11 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         adLauncherDB = AdLauncherDB.getInstance(this);
+        String ip = Config.get("domain");
+    	String path = Config.get("url.getLayout");
+    	String mac = Config.get("mac");
+    	String url = "http://"+ip+path+"&mid="+mac;
+    	LogUtil.i(TAG, url);
         Intent intent = new Intent(this, WebSocketService.class);
         boolean isBind = bindService(intent, connection, BIND_AUTO_CREATE);
         if(isBind == true){
@@ -62,6 +73,7 @@ public class MainActivity extends Activity {
     		Timer time =new Timer();
     		time.schedule(sendpang, 10*1000, 20*1000);
         }
+        queryFromServer(url, "layout_api");
     }
     
     /**
@@ -82,17 +94,20 @@ public class MainActivity extends Activity {
      * @param type	请求的类型
      */
     private void queryFromServer(final String address, final String type){
-    	HttpUtil.getHttpRequest(address, new HttpCallbackListener() {
+    	LogUtil.i(TAG, "执行加载布局");
+    	HttpUtil.sendOkHttpRequest(address, new Callback() {
 			
 			@Override
-			public void onFinish(String response) {
+			public void onResponse(Call arg0, Response arg1) throws IOException {
 				// TODO Auto-generated method stub
+				LogUtil.d(TAG, "服务器相应的回调");
 				if("lastest_api".equals(type)){
 					
 				}else if("init_api".equals(type)){
 					
 				}else if("layout_api".equals(type)){
-					Utility.handleLayoutResponse(adLauncherDB, response);
+					LogUtil.i("TAG", "layout_api");
+					Utility.handleLayoutResponse(adLauncherDB, arg1);
 				}else if("applist_api".equals(type)){
 					
 				}else if("adlist_api".equals(type)){
@@ -109,9 +124,9 @@ public class MainActivity extends Activity {
 			}
 			
 			@Override
-			public void onError(Exception e) {
+			public void onFailure(Call arg0, IOException arg1) {
 				// TODO Auto-generated method stub
-				LogUtil.e(TAG, "网络请求错误");
+				
 			}
 		});
     }

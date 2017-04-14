@@ -37,7 +37,7 @@ public class WebSocketService extends Service {
 		// TODO Auto-generated method stub
 		super.onCreate();
 		initWebSocket();
-		LogUtil.i(TAG, "service created");
+//		LogUtil.i(TAG, "service created");
 	}
 
 	@Override

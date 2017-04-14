@@ -1,7 +1,10 @@
 package com.eightmile.adlauncher.util;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +18,7 @@ import com.eightmile.adlauncher.manager.LayoutManager;
 import com.eightmile.adlauncher.model.LayoutInfo;
 
 public class Utility {
+	public static final String TAG= "Utility";
 	
 	/**
 	 * 用于处理从服务器返回的布局数据	
@@ -25,13 +29,21 @@ public class Utility {
 	 * @param response 需要处理的布局数据
 	 * @return boolean
 	 */
-	public static boolean handleLayoutResponse(AdLauncherDB adLauncherDB, String response){
-		if(!TextUtils.isEmpty(response)){
+	public static boolean handleLayoutResponse(AdLauncherDB adLauncherDB, Response response){
+		String body = "";
+		try {
+			body = response.body().string();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		if(!TextUtils.isEmpty(body)){
 			LayoutManager layoutManager = new LayoutManager();
 			JSONObject jsonObject;
 			String status = "";
 			try {
-				jsonObject = new JSONObject(response);
+				jsonObject = new JSONObject(body);
 				status = jsonObject.getString("status");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -39,11 +51,12 @@ public class Utility {
 			}
 			
 			if(status.equals("1")){
+				
 				List<LayoutInfo> list = new ArrayList<LayoutInfo>();
 				list = adLauncherDB.loadLayout();
 				if(list.size() == 0){
 					//直接加载从服务器请求的数据，并将数据插入到数据库
-					adLauncherDB.saveLayout(response);
+					adLauncherDB.saveLayout(body);
 					return true;
 				}else{
 					if(list.get(0).getContent().equals(response)){
@@ -52,8 +65,8 @@ public class Utility {
 						return true;
 					}else{
 						//加载从服务器请求的布局，并覆盖原数据库中的数据
-						layoutManager.createLayout(response);
-						adLauncherDB.updateLayout(response, list.get(0).getId());
+						layoutManager.createLayout(body);
+						adLauncherDB.updateLayout(body, list.get(0).getId());
 						return true;
 					}
 				}
