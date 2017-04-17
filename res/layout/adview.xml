@@ -9,15 +9,13 @@
     >
 
     <!--视频广告-->
-    <VideoView
-        android:id="@+id/vidAd"
+    <VideoView android:id="@+id/vidAd"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-         />
+        android:layout_alignParentBottom="true"/>
     <!--图片广告-->
     <ImageView
         android:id="@+id/imgAd"

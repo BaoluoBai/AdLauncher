@@ -77,7 +77,7 @@ public class WebSocketService extends Service {
 			@Override
 			public void onMessage(String arg0) {
 				// TODO Auto-generated method stub
-				LogUtil.i(TAG, arg0);
+//				LogUtil.i(TAG, arg0);
 			}
 			
 			@Override

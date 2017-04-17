@@ -76,7 +76,18 @@ public class MainActivity extends Activity {
         queryFromServer(url, "layout_api");
     }
     
-    /**
+    
+    
+    @Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		unbindService(connection);
+	}
+
+
+
+	/**
      * 向服务器发送心跳包
      */
     public void sendHeartBeat(){
