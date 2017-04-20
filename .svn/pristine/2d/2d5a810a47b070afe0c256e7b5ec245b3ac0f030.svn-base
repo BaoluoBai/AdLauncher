@@ -1,0 +1,9 @@
+0000000000000000000000000000000000000000 046a41d6ed97bfaf3efeee16d414e9cdc564190f Chen <chzhang_knowology@163.com> 1491817391 +0800	clone: from https://github.com/BaoluoBai/AdLauncher.git
+046a41d6ed97bfaf3efeee16d414e9cdc564190f 6dff9505e55ebaee02942bb81a04b5affc157269 Chen <chzhang_knowology@163.com> 1491817712 +0800	commit: First commit.
+6dff9505e55ebaee02942bb81a04b5affc157269 9e93d9c1df4b6079772c9c28a26924e342a5a452 Chen <chzhang_knowology@163.com> 1491898802 +0800	commit: add the service of websocket.
+9e93d9c1df4b6079772c9c28a26924e342a5a452 8ee5fd0210b50d9422462f8895f8ef73d8d9a0eb Chen <chzhang_knowology@163.com> 1491984239 +0800	commit: add the model of handler data and the function of download
+8ee5fd0210b50d9422462f8895f8ef73d8d9a0eb a73fa739c7e8490534f80f42779d64b7642bf2f1 Chen <chzhang_knowology@163.com> 1491990921 +0800	commit: 添加布局管理的功能
+a73fa739c7e8490534f80f42779d64b7642bf2f1 711c7803c30a8463ae03c653fd2be7e168205066 Chen <chzhang_knowology@163.com> 1492075471 +0800	commit: 管理下载的代码添加
+711c7803c30a8463ae03c653fd2be7e168205066 6494145c488e1e95c9ef9ae92724603c231e1e47 Chen <chzhang_knowology@163.com> 1492075528 +0800	commit: 管理下载的代码添加
+6494145c488e1e95c9ef9ae92724603c231e1e47 18c76caba44b0e840533576ed2579c1bf121edde Chen <chzhang_knowology@163.com> 1492162690 +0800	commit: 修改下载和加载布局的代码
+18c76caba44b0e840533576ed2579c1bf121edde aa0b7fee36bd20981a8c1d423ab68149c34e4c7a Chen <chzhang_knowology@163.com> 1492421339 +0800	commit: 添加下载背景图片，webImage功能的代码
